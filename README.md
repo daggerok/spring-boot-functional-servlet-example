@@ -1,4 +1,4 @@
-# Functional Servlet MVC
+# Functional Servlet MVC [![Build Status](https://travis-ci.org/daggerok/spring-boot-functional-servlet-example.svg?branch=master)](https://travis-ci.org/daggerok/spring-boot-functional-servlet-example)
 This is a later spring web (2.2.0.BUILD-SNAPSHOT) with functional servlet functionality!
 
 ## Key items
@@ -31,9 +31,8 @@ public class FunctionalRouter {
 ./mvnw
 java -jar ./target/*.jar
 
-http :8080
-http :8080/mvc body=hello
 http :8080/fn body=world
-http :8080/mvc
-http :8080/fn
+http :8080/mvc/
+http :8080/mvc body=hello
+http :8080/fn/
 ```
