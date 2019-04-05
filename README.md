@@ -39,4 +39,5 @@ http :8080/fn/
 
 links:
 
+* [YouTube: Spring Tips: WebMvc.fn - the functional DSL for Spring MVC](https://www.youtube.com/watch?v=vZV2_9KVHJU)
 * [See that useful article](https://medium.com/@kasunpdh/using-the-maven-assembly-plugin-to-build-a-zip-distribution-5cbca2a3b052)
