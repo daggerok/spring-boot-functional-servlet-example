@@ -28,13 +28,19 @@ public class FunctionalRouter {
 ## Build, run and test
 
 ```bash
-./mvnw
-java -jar ./target/*.jar
+./mvnw                    # or: ./gradlew
+java -jar ./target/*.jar  # or ./build/libs/*.jar
 
 http :8080/fn body=world
 http :8080/mvc/
 http :8080/mvc body=hello
 http :8080/fn/
+```
+
+## zip sources (out of topic)
+
+```bash
+./gradlew sources # or ./mvnw package
 ```
 
 links:
