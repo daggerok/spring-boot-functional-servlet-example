@@ -3,7 +3,43 @@ jdk: openjdk11
 env:
   global:
     secure: ZeBJz5NHikidayurQTesRAEuvZM9WYLe3XEtfYql62aK4fBfr8kWC6jTIahcRNvTahPYyzQ37LnW1GgEG+guaXNtbak8bQ3mDDIgVzwPSjfFXEQNcB0FqjhbyP2VcBwdDLCjKLx+gaSx8GV7rX6H6lJSJaXhZOfZ0iTpuaaPMDs4DWenNmbiWUwVahWaLii9C8pQbhg3mx6cQIVEKCyW5Da9xBdYbN35uUxWQNf8z3fiOFGpq93qmFOt4sXCDC/F55SKhnK7Waq4lmGJdaoyv817I/KNojqtAuKdM17eFnPC7t9OIlflhp15kJIUodhVuz59Ig6EuFowlNrEvseqD5tjlF1yH0rWzx1VnXKSUZnhQSxpemenZSmCtKVYInAXNzf5pmmo63Zxhxfmyzc1Vp2I8u0DywRJP2dGFp+s8sH32NLZuCEeKB8WyBwonnNw02lUDXUqKJ71nhrEvGi36AlZIclpTcgwPPHS6odFtCsgJyKWFX67tfA6WJxGftZJz349QYttT9cG+/xLnY05Kf3TEc23ttj7wF5aqup3LWV++0t3jKpn52Pfeg7ptEKlIaqlYlXyGaIhf7BOBmrfxz/q0N4vh66mrTNwgR3gyv20gDbB/S27eb8F8CZObZUnb7K57TTVx+eW8S70hDf774cHv1BLZpd6IIIfYJ1o0No=
+apt_packages:
+  - python-pip
+  - curl
+  - jq
 install: true
+before_script:
+  - sudo pip install --upgrade httpie >/dev/null 2>&1
+  - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+  - stop_any 80 8080
 script:
-  - ./mvnw
-  - ./target/*.jar
+  - ./mvnw >/dev/null
+  - ./mvnw clean install
+  - ./target/*.jar &
+  - wait_for 8080
+  - http :8080/fn body=hello | jq '.'
+  - http :8080/mvc/ | jq '.'
+  - http :8080/mvc body=world | jq '.'
+  - http :8080/fn/ | jq '.'
+  - stop_any 80 8080
+  #
+  - unzip -d target/1 target/*.zip
+  #
+  - ./gradlew >/dev/null
+  - ./gradlew clean build
+  - ./build/libs/*.jar &
+  - wait_for 8080
+  - http :8080/fn body=ololo | jq '.'
+  - http :8080/mvc/ | jq '.'
+  - http :8080/mvc body=trololo | jq '.'
+  - http :8080/fn/ | jq '.'
+  - stop_any 80 8080
+  #
+  - ./gradlew sources
+  - unzip -d build/1 build/*.zip
+cache:
+  packages: true
+  directories:
+    - ~/.gradle
+    - ~/.m2
+

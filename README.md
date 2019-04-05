@@ -36,3 +36,7 @@ http :8080/mvc/
 http :8080/mvc body=hello
 http :8080/fn/
 ```
+
+links:
+
+* [See that useful article](https://medium.com/@kasunpdh/using-the-maven-assembly-plugin-to-build-a-zip-distribution-5cbca2a3b052)
