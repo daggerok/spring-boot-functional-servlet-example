@@ -29,7 +29,7 @@ public class FunctionalRouter {
 
 ```bash
 ./mvnw                    # or: ./gradlew
-java -jar ./target/*.jar  # or ./build/libs/*.jar
+java -jar ./target/*.jar  # or: ./build/libs/*.jar
 
 http :8080/fn body=world
 http :8080/mvc/
