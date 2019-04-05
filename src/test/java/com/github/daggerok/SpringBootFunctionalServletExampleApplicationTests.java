@@ -36,15 +36,15 @@ public class SpringBootFunctionalServletExampleApplicationTests {
   }
 
   @Test
-  public void test() {
-    // given no messages available on functional resource:
+  public void test_functional_resources() {
+    // given no messages available:
     var types = new ParameterizedTypeReference<List<Message>>() {};
     var entity = client.exchange(baseUrl() + "/fn", HttpMethod.GET, null, types);
     var emptyBody = entity.getBody();
     log.info("emptyBody: {}", emptyBody);
     assertThat(emptyBody).isEmpty();
 
-    // when message has been created on functional resource:
+    // when message has been created:
     var type = new ParameterizedTypeReference<Void>() {};
     var request = new HttpEntity<>(Message.of(null, null, "Hello!"));
     var response = client.exchange(baseUrl() + "/fn", HttpMethod.POST, request, type);
